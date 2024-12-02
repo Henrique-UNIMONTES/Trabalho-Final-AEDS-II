@@ -2,23 +2,53 @@
 #include <stdlib.h>
 #include <string.h>
 
-void Qsort(int v[], int ini, int fim){
-  int i, j, pivo, aux;
-  i=ini;
-  j=fim;
-  pivo = ini;
-  if(ini>=fim)return;
-  while(i<j){
-    while(v[i]<v[pivo]) i++;
-    while(v[j]>v[pivo]) j--;
-    if(i<=j){
-      aux=v[i];
-      v[i]=v[j];
-      v[j]=aux;
-      if(pivo==i) pivo = j;
-      else if (pivo==j) pivo = i;
-    }
-  }
-  Qsort(v, ini, pivo-1);
-  Qsort(v, pivo+1, fim);
+int extractNumber(const char* str) {
+    return atoi(str + 1); // Converte os caracteres após 's' para número inteiro
 }
+
+int partition(char* arr[], int low, int high) {
+    int pivot = extractNumber(arr[high]); // Escolhe o número do elemento pivô
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (extractNumber(arr[j]) < pivot) {
+            i++;
+            swap(arr, i, j);
+        }
+    }
+    swap(arr, i + 1, high);
+    return i + 1;
+}
+
+void quickSort(char* arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+void printArray(char* arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%s ", arr[i]);
+    }
+    printf("\n");
+}
+
+/*int main() {
+    // Array de strings no formato "s(numero)"
+    char* strings[] = {"s23", "s5", "s8", "s15", "s2"};
+    int n = sizeof(strings) / sizeof(strings[0]);
+
+    printf("Array original:\n");
+    printArray(strings, n);
+
+    // Ordenando o array com QuickSort
+    quickSort(strings, 0, n - 1);
+
+    printf("\nArray ordenado:\n");
+    printArray(strings, n);
+
+    return 0;
+}*/
