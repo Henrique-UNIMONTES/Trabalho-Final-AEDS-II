@@ -6,6 +6,9 @@ int access = 0;
 // Stores the search stack path of the ABB algorithm
 String *searchStackTree;
 
+// Stores the current index method of the ABB tree
+int abbMode;
+
 Abb *insertNode(Abb *root, char *id, int index) {
   if (root == NULL) {
     Abb *new = (Abb *) malloc(sizeof(Abb));
@@ -93,48 +96,106 @@ void initializeAbb() {
   int op;
   
   printf("What kind of search you would like do perform?\n");
-  printf("[1] - By ID");
-  printf("[2] - By date");
-  printf("[3] - None (Back to main menu)");
+  printf("[1] - By ID\n");
+  printf("[2] - By date\n");
+  printf("[3] - None (Back to main menu)\n");
   scanf("%d", &op);
 
-  if (op == 1) {
-    for (int i = 0; i < titles_size; i++) {
-      root = insertNode(root, titles_data[i].id, titles_data[i].index);
-    }
+  abbMode = op;
+
+  if (op == 3) {
+    return;
   }
 
-  else {
+  else if (op > 1) {
     printf("Not implemented yet");
     return;
   }
 
+  for (int i = 0; i < titles_size; i++) {
+    root = insertNode(root, titles_data[i].id, titles_data[i].index);
+  }
+
   printf("Nodes inserted on the ABB\n\n");
 
-  searchStackTree = createString();
-  access = 0;
+  while (TRUE) {
+    searchStackTree = createString();
+    access = 0;
 
-  char *ans = "s563";
-  printf("Starting search for the node with ID: %s\n\n", ans);
-  printf("Initial time : ");
-  time_t initialTime = showTime();
+    if (abbMode == 1) {
+      int id;
 
-  Abb *node = searchNode(root, ans);
+      while (TRUE) {
+        printf("Informe o ID para realizar a busca: [1 - 8807]\ns");
+        scanf("%d", &id);
+        clearBuffer();
 
-  printf("Final time   : ");
-  time_t finalTime = showTime();
+        if (id < 1 || id > 8807) {
+          printf("ID inválido\n\n");
+        }
 
-  printf("Total time   : %ld second(s)\n\n", finalTime - initialTime);
+        else {
+          break;
+        }
+      }
 
-  printf("Total memory accesses: %d\n\n", access);
+      char ans[6];
+      ans[0] = 's';
 
-  if (node != NULL) printf("Node found at index: [%d]\n\n", node->index);
-  else printf("Node not found\n\n");
+      if (id < 10) {
+        ans[1] = '0' + id;
+        ans[2] = '\0';
+      }
 
-  printf("Search stack path:\n");
-  printf("[BEGIN] -> ");
-  printString(searchStackTree);
-  printf("[END]\n\n");
+      else if (id < 100) {
+        ans[1] = '0' + id / 10;
+        ans[2] = '0' + id % 10;
+        ans[3] = '\0';
+      }
+
+      else if (id < 1000) {
+        ans[1] = '0' + id / 100;
+        ans[2] = '0' + (id % 100) / 10;
+        ans[3] = '0' + (id % 100) % 10;
+        ans[4] = '\0';
+      }
+
+      else {
+        ans[1] = '0' + id / 1000;
+        ans[2] = '0' + (id % 1000) / 100;
+        ans[3] = '0' + ((id % 1000) % 100) / 10;
+        ans[4] = '0' + ((id % 1000) % 100) % 10;
+        ans[5] = '\0';
+      }
+
+      printf("\nStarting search for the node with ID: %s\n\n", ans);
+      printf("Initial time : ");
+      time_t initialTime = showTime();
+
+      Abb *node = searchNode(root, ans);
+
+      printf("Final time   : ");
+      time_t finalTime = showTime();
+
+      printf("Total time   : %ld second(s)\n\n", finalTime - initialTime);
+
+      printf("Total memory accesses: %d\n\n", access);
+
+      if (node != NULL) printf("Node found at index: [%d]\n\n", node->index);
+      else printf("Node not found\n\n");
+
+      printf("Search stack path:\n");
+      printf("[BEGIN] -> ");
+      printString(searchStackTree);
+      printf("[END]\n\n");
+    }
+
+    else if (abbMode == 2) {
+
+    }
+
+    clearString(searchStackTree);
+  }
 
   freeAbb(root);
 }

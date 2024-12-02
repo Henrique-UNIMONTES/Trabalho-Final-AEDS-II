@@ -42,17 +42,18 @@ void loadData() {
 
     titles_data[i].id = (char *) malloc(sizeof(char) * length + 1);
     stringToCharArray(t.id, titles_data[i].id);
-    titles_data[i].index = indexes[i];
 
     length = stringLength(t.data_added);
-    titles_date[i].date = (char *) malloc(sizeof(char) * length + 1);
-    stringToCharArray(t.data_added, titles_date[i].date);
-    titles_date[i].index = indexes[i];
+
+    titles_data[i].date = (char *) malloc(sizeof(char) * length + 1);
+    stringToCharArray(t.data_added, titles_data[i].date);
+
+    titles_data[i].index = indexes[i];
     
     clearModel(&t);
-
+    
     if ((i + 1) % 500 == 0) {
-       printf("Titles [%d] - [%d] loaded\n", i + 1 - 500, i + 1);
+      printf("Titles [%d] - [%d] loaded\n", i + 1 - 500, i + 1);
     }
   }
 

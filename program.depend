@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1733150368 source:c:\users\henrique.souza\documents\aeds trabalho final\main.c
+	"imports.h"
+
+1733147631 c:\users\henrique.souza\documents\aeds trabalho final\imports.h
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	<string.h>
+	"Model/Model.h"
+	"Model/Const.h"
+	"View/Menu.h"
+	"Storage/File.h"
+	"Controller/Test.h"
+	"Controller/Abb/Abb.h"
+
+1733151092 c:\users\henrique.souza\documents\aeds trabalho final\model\model.h
+	"../imports.h"
+
+1733151239 c:\users\henrique.souza\documents\aeds trabalho final\model\const.h
+	"../imports.h"
+
+1733147210 c:\users\henrique.souza\documents\aeds trabalho final\view\menu.h
+	"../imports.h"
+
+1733147210 c:\users\henrique.souza\documents\aeds trabalho final\storage\file.h
+	"../imports.h"
+
+1733147210 c:\users\henrique.souza\documents\aeds trabalho final\controller\test.h
+	"../imports.h"
+
+1733147210 c:\users\henrique.souza\documents\aeds trabalho final\controller\abb\abb.h
+	"../../imports.h"
+
+1733147210 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\abb\abb.c
+	"Abb.h"
+
+1733147210 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\quicksort\ordenação.c
+
+1733152411 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\test.c
+	"Test.h"
+
+1733151100 source:c:\users\henrique.souza\documents\aeds trabalho final\model\const.c
+	"Const.h"
+
+1733151375 source:c:\users\henrique.souza\documents\aeds trabalho final\model\model.c
+	"Model.h"
+
+1733147210 source:c:\users\henrique.souza\documents\aeds trabalho final\storage\file.c
+	"File.h"
+
+1733147210 source:c:\users\henrique.souza\documents\aeds trabalho final\view\menu.c
+	"Menu.h"
+

@@ -13,8 +13,7 @@
   #define GLOBALS
 
   extern int titles_size;
+  extern int tests_loaded;
   extern int *indexes;
   extern ResumedTitle *titles_data;
-  extern int tests_loaded;
-  extern TitleDates *titles_date;
 #endif

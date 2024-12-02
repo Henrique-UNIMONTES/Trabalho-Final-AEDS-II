@@ -53,11 +53,8 @@ int stringLength(String *s) {
 }
 
 void clearString(String *s) {
-  return;
   Character *tmp, *ch = s->begin;
 
-  printf("Here");
-  return;
   while (ch != NULL) {
     tmp = ch->next;
     free(ch);
