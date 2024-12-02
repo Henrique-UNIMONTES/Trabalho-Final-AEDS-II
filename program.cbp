@@ -31,9 +31,40 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Controller/Abb/Abb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Controller/Abb/Abb.h" />
+		<Unit filename="Controller/QuickSort/Ordenação.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Controller/QuickSort/Ordenação.h" />
+		<Unit filename="Controller/Test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Controller/Test.h" />
+		<Unit filename="Model/Const.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Model/Const.h" />
+		<Unit filename="Model/Model.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Model/Model.h" />
+		<Unit filename="Storage/File.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Storage/File.h" />
+		<Unit filename="View/Menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="View/Menu.h" />
+		<Unit filename="data.bin" />
+		<Unit filename="imports.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="netflix_titles.csv" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
