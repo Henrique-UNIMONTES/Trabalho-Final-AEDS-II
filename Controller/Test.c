@@ -43,10 +43,10 @@ void loadData() {
     titles_data[i].id = (char *) malloc(sizeof(char) * length + 1);
     stringToCharArray(t.id, titles_data[i].id);
 
-    length = stringLength(t.data_added);
+    length = stringLength(t.title);
 
-    titles_data[i].date = (char *) malloc(sizeof(char) * length + 1);
-    stringToCharArray(t.data_added, titles_data[i].date);
+    titles_data[i].title = (char *) malloc(sizeof(char) * length + 1);
+    stringToCharArray(t.title, titles_data[i].title);
 
     titles_data[i].index = indexes[i];
     
@@ -58,7 +58,6 @@ void loadData() {
   }
 
   tests_loaded = TRUE;
-  printf("\n");
 }
 
 void initializeTests(int test) {
@@ -75,12 +74,15 @@ void initializeTests(int test) {
   }
 
   else if (test == 2) {
-    printf("Binary Search Tree test initializing...\n\n");
-    initializeAbb();
+    printf("\nBinary Search Tree test initializing...\n\n");
+    int repeat;
+    do {
+      repeat = initializeAbb();
+    } while (repeat);
   }
 
   else {
-    printf("Test not implemented yet");
+    printf("Test not implemented");
     exit(1);
   }
 }

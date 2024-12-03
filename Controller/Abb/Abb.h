@@ -1,20 +1,20 @@
 #ifndef IMPORTS_H
-#define IMPORTS_H
-#include "../../imports.h"
+  #define IMPORTS_H
+  #include "../../imports.h"
 #endif
 
 #ifndef STRUCT_ABB
-#define STRUCT_ABB
+  #define STRUCT_ABB
 
-/**
- * @description Binary Search Tree node representation
- **/
-typedef struct abb {
-  int index;
-  char id[10];
-  struct abb *left;
-  struct abb *right;
-} Abb;
+  /**
+   * @description Binary Search Tree node representation
+   **/
+  typedef struct abb {
+    int index;
+    char *id;
+    struct abb *left;
+    struct abb *right;
+  } Abb;
 #endif
 
 /**
@@ -40,5 +40,6 @@ void freeAbb(Abb *root);
 
 /**
  * @description Entrypoint for the test
+ * @return int A flag that tells the program if the user wanna make another binary search test
  **/
-void initializeAbb();
+int initializeAbb();

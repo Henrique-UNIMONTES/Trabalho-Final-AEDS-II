@@ -14,3 +14,8 @@ int mainMenu(int menuOk);
  * @description Clears the keyboard buffer
 **/
 void clearBuffer();
+
+/**
+ * @description Prints a line into the console
+ */
+void printLine();

@@ -31,7 +31,7 @@
   } Title;
 
   typedef struct {
-    char *id, *date;
+    char *id, *title;
     int index;
   } ResumedTitle;
 #endif

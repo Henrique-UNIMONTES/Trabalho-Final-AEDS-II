@@ -14,30 +14,54 @@ Abb *insertNode(Abb *root, char *id, int index) {
     Abb *new = (Abb *) malloc(sizeof(Abb));
     new->right = new->left = NULL;
     new->index = index;
+    new->id = (char *) malloc(sizeof(char) * (strlen(id) + 1));
     strcpy(new->id, id);
     return new;
   }
 
-  int rootID = 0;
+  if (abbMode == 1) {
+    int rootID = 0;
 
-  for (int i = 1; i < strlen(root->id); i++) {
-    rootID += root->id[i] - '0';
-    rootID *= 10;
+    for (int i = 1; i < strlen(root->id); i++) {
+      rootID += root->id[i] - '0';
+      rootID *= 10;
+    }
+
+    int nodeID = 0;
+
+    for (int i = 1; i < strlen(id); i++) {
+      nodeID += id[i] - '0';
+      nodeID *= 10;
+    }
+
+    if (rootID < nodeID) {
+      root->right = insertNode(root->right, id, index);
+    }
+
+    else {
+      root->left = insertNode(root->left, id, index);
+    }
   }
 
-  int nodeID = 0;
+  else if (abbMode == 2) {
+    int cmp = strcmp(root->id, id);
 
-  for (int i = 1; i < strlen(id); i++) {
-    nodeID += id[i] - '0';
-    nodeID *= 10;
-  }
+    if (cmp == 0) {
+      return root;
+    }
 
-  if (rootID < nodeID) {
-    root->right = insertNode(root->right, id, index);
+    else if (cmp < 0) {
+      root->right = insertNode(root->right, id, index);
+    }
+
+    else {
+      root->left = insertNode(root->left, id, index);
+    }
   }
 
   else {
-    root->left = insertNode(root->left, id, index);
+    printf("Abb mode not implemented");
+    exit(1);
   }
 
   return root;
@@ -60,27 +84,53 @@ Abb *searchNode(Abb *root, char *id) {
   pushString(searchStackTree, '>');
   pushString(searchStackTree, ' ');
 
-  int rootID = 0;
+  if (abbMode == 1) {
+    int rootID = 0;
 
-  for (int i = 1; i < strlen(root->id); i++) {
-    rootID += root->id[i] - '0';
-    rootID *= 10;
+    for (int i = 1; i < strlen(root->id); i++) {
+      rootID += root->id[i] - '0';
+      rootID *= 10;
+    }
+
+    int nodeID = 0;
+
+    for (int i = 1; i < strlen(id); i++) {
+      nodeID += id[i] - '0';
+      nodeID *= 10;
+    }
+
+    if (nodeID == rootID) return root;
+
+    if (rootID < nodeID) {
+      return searchNode(root->right, id);
+    }
+
+    return searchNode(root->left, id);
   }
 
-  int nodeID = 0;
+  else if (abbMode == 2) {
+    int len1 = strlen(root->id), len2 = strlen(id);
+    int cmp = strncmp(root->id, id, len1 > len2 ? len2 : len1);
 
-  for (int i = 1; i < strlen(id); i++) {
-    nodeID += id[i] - '0';
-    nodeID *= 10;
+    if (cmp == 0 && len1 < len2) cmp = -1;
+
+    if (cmp == 0) {
+      return root;
+    }
+
+    else if (cmp < 0) {
+      return searchNode(root->right, id);
+    }
+
+    else {
+      return searchNode(root->left, id);
+    }
   }
 
-  if (nodeID == rootID) return root;
-
-  if (rootID < nodeID) {
-    return searchNode(root->right, id);
+  else {
+    printf("Search type not implemented");
+    exit(1);
   }
-
-  return searchNode(root->left, id);
 }
 
 void freeAbb(Abb *root) {
@@ -91,34 +141,52 @@ void freeAbb(Abb *root) {
   free(root);
 }
 
-void initializeAbb() {
+int initializeAbb() {
   Abb *root = NULL;
   int op;
   
-  printf("What kind of search you would like do perform?\n");
-  printf("[1] - By ID\n");
-  printf("[2] - By date\n");
-  printf("[3] - None (Back to main menu)\n");
-  scanf("%d", &op);
+  do {
+    printf("What kind of search you would like do perform?\n");
+    printf("[1] - By ID\n");
+    printf("[2] - By Title\n");
+    printf("[3] - None (Back to main menu)\n");
+    scanf("%d", &op);
+    clearBuffer();
+
+    if (op < 1 || op > 3) {
+      printf("\nInvalid option\n\n");
+    }
+
+    else break;
+  } while (TRUE);
 
   abbMode = op;
 
   if (op == 3) {
-    return;
+    printf("\n");
+    return 0;
   }
 
-  else if (op > 1) {
-    printf("Not implemented yet");
-    return;
+  if (abbMode == 1) {
+    for (int i = 0; i < titles_size; i++) {
+      root = insertNode(root, titles_data[i].id, titles_data[i].index);
+    }
   }
 
-  for (int i = 0; i < titles_size; i++) {
-    root = insertNode(root, titles_data[i].id, titles_data[i].index);
+  else {
+    for (int i = 0; i < titles_size; i++) {
+      for (int j = 0; j < strlen(titles_data[i].title); j++) {
+        titles_data[i].title[j] = tolower(titles_data[i].title[j]);
+      }
+
+      root = insertNode(root, titles_data[i].title, titles_data[i].index);
+    }
   }
 
   printf("Nodes inserted on the ABB\n\n");
 
-  while (TRUE) {
+  char op2;
+  do {
     searchStackTree = createString();
     access = 0;
 
@@ -181,21 +249,77 @@ void initializeAbb() {
 
       printf("Total memory accesses: %d\n\n", access);
 
-      if (node != NULL) printf("Node found at index: [%d]\n\n", node->index);
+      if (node != NULL) {
+        Title t;
+        deserializeModel(&t, node->index);
+        printModel(t);
+        printf("\n\n");
+      }
+
       else printf("Node not found\n\n");
 
       printf("Search stack path:\n");
       printf("[BEGIN] -> ");
       printString(searchStackTree);
       printf("[END]\n\n");
+
+      printf("Do you wanna make another ID search? [Y/n]\n");
+      scanf("%c", &op2);
+      clearBuffer();
     }
 
     else if (abbMode == 2) {
+      char title[51];
+      printf("This search looks finds the first title that matches with the search string.\n");
+      printf("Enter the title you wanna to search for: [MAX LENGTH = 50]\n");
+      scanf("%50[^\n]", title);
+      clearBuffer();
+      printf("\n");
 
+      printf("\nStarting search for the node with title: %s\n\n", title);
+      printf("Initial time : ");
+      time_t initialTime = showTime();
+
+      Abb *node = searchNode(root, title);
+
+      printf("Final time   : ");
+      time_t finalTime = showTime();
+
+      printf("Total time   : %ld second(s)\n\n", finalTime - initialTime);
+
+      printf("Total memory accesses: %d\n\n", access);
+
+      if (node != NULL) {
+        Title t;
+        deserializeModel(&t, node->index);
+        printModel(t);
+        printf("\n\n");
+      }
+
+      else printf("Node not found\n\n");
+
+      printf("Search stack path:\n");
+      printf("[BEGIN] -> ");
+      printString(searchStackTree);
+      printf("[END]\n\n");
+
+      printf("Do you wanna make another Title search? [Y/n]\n");
+      scanf("%c", &op2);
+      clearBuffer();
     }
 
     clearString(searchStackTree);
-  }
+  } while (op2 == 'Y' || op2 == 'y');
 
   freeAbb(root);
+
+  printf("\nDo you wanna make another type of search? [Y/n]\n");
+  scanf("%c", &op2);
+  printf("\n");
+
+  if (op2 == 'Y' || op2 == 'y') {
+    return TRUE;
+  }
+
+  return FALSE;
 }

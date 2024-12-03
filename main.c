@@ -11,7 +11,8 @@ int main(void) {
   
   do {
     option = mainMenu(fileOk);
-  
+    fileOk = TRUE;
+    
     switch (option) {
       case 1: case 2:
         initializeTests(option);
@@ -20,4 +21,12 @@ int main(void) {
         return 0;
     }
   } while (TRUE);
+
+  for (int i = 0; i < titles_size; i++) {
+    free(titles_data[i].id);
+    free(titles_data[i].title);
+  }
+
+  free(indexes);
+  free(titles_data);
 }

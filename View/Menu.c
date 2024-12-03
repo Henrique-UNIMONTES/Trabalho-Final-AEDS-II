@@ -20,7 +20,7 @@ int mainMenu(int menuOk) {
       clearBuffer();
   
       if (option < 1 || option > 3) {
-        printf("Invalid option\n\n");
+        printf("\nInvalid option\n\n");
         invalid = TRUE;
       }
     } while (invalid);
@@ -61,4 +61,8 @@ int mainMenu(int menuOk) {
 
 void clearBuffer() {
   while (getchar() != '\n');
+}
+
+void printLine() {
+  printf("===============================================");
 }

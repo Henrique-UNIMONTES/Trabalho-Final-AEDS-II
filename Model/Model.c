@@ -105,7 +105,7 @@ void printModel(Title t) {
   printString(t.cast);
   printf("\nCountry: ");
   printString(t.country);
-  printf("\nData Added: ");
+  printf("\nDate Added: ");
   printString(t.data_added);
   printf("\nYear: %d", t.release_year);
   printf("\nRating: ");
