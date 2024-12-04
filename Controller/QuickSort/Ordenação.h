@@ -1,6 +1,12 @@
+#ifndef IMPORTS_H
+#define IMPORTS_H
+#include "../../imports.h"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 //Extração de número da string do id
 int extractNumber(const char* str);
