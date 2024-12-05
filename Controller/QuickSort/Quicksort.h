@@ -3,17 +3,10 @@
   #include "../../imports.h"
 #endif
 
-//Extração de número da string do id
-int extractNumber(const char* str);
+int partition(ResumedTitle *arr, int low, int high);
 
-//troca duas strings em um array
-void swap(char* arr[], int i, int j);
+void quickSort(ResumedTitle *arr, int low, int high);
 
-//faz a partição e define o pivô para o quicksort
-int partition(char* arr[], int low, int high);
+void swap(ResumedTitle* a, ResumedTitle* b);
 
-//quicksort principal
-void quickSort(char* arr[], int low, int high);
-
-//impressão de array usada para teste
-void printArray(char* arr[], int size);
+int initializeQuickSort();

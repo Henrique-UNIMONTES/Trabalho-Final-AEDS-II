@@ -16,4 +16,5 @@
   extern int tests_loaded;
   extern int *indexes;
   extern ResumedTitle *titles_data;
+  extern ResumedTitle *quick_sort_vector;
 #endif

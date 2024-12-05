@@ -33,9 +33,8 @@ void configIndexes() {
 
 void loadData() {
   titles_data = (ResumedTitle *) malloc(sizeof(ResumedTitle) * titles_size);
+  quick_sort_vector = (ResumedTitle *) malloc(sizeof(ResumedTitle) * titles_size);
 
-  printf("INIT: ");
-  time_t sec = showTime();
   for (int i = 0; i < titles_size; i++) {
     Title t;
     deserializeModel(&t, indexes[i]);
@@ -45,12 +44,23 @@ void loadData() {
     titles_data[i].id = (char *) malloc(sizeof(char) * length + 1);
     stringToCharArray(t.id, titles_data[i].id);
 
+    quick_sort_vector[i].id = (char *) malloc(sizeof(char) * length + 1);
+    stringToCharArray(t.id, quick_sort_vector[i].id);
+
     length = stringLength(t.title);
 
     titles_data[i].title = (char *) malloc(sizeof(char) * length + 1);
     stringToCharArray(t.title, titles_data[i].title);
 
+    quick_sort_vector[i].title = (char *) malloc(sizeof(char) * length + 1);
+    stringToCharArray(t.title, quick_sort_vector[i].title);
+
+    for (int j = 0; j < strlen(quick_sort_vector[i].title); j++) {
+      quick_sort_vector[i].title[j] = tolower(quick_sort_vector[i].title[j]);
+    }
+
     titles_data[i].index = indexes[i];
+    quick_sort_vector[i].index = indexes[i];
     
     clearModel(&t);
     
@@ -59,8 +69,6 @@ void loadData() {
     }
   }
 
-  time_t sec2 = showTime();
-  printf("Total: %ld\n\n", sec2 - sec);
   tests_loaded = TRUE;
 }
 
@@ -74,7 +82,12 @@ void initializeTests(int test) {
   }
 
   if (test == 1) {
-    printf("Test not implemented yet\n\n");
+    printf("Quick sort test initializing...\n\n");
+    int repeat = 0;
+
+    do {
+      repeat = initializeQuickSort();
+    } while(repeat);
   }
 
   else if (test == 2) {

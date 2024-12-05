@@ -176,16 +176,22 @@ int initializeAbb() {
     for (int i = 0; i < titles_size; i++) {
       root = insertNode(root, titles_data[i].id, titles_data[i].index);
     }
-    printf("ACCESS: %d\n", access);
   }
 
   else {
     for (int i = 0; i < titles_size; i++) {
-      for (int j = 0; j < strlen(titles_data[i].title); j++) {
-        titles_data[i].title[j] = tolower(titles_data[i].title[j]);
+      char *tmp = (char *) malloc(sizeof(char) * (strlen(titles_data[i].title) + 1));
+
+      int j;
+      for (j = 0; j < strlen(titles_data[i].title); j++) {
+        tmp[j] = titles_data[i].title[j];
+        tmp[j] = tolower(tmp[j]);
       }
 
-      root = insertNode(root, titles_data[i].title, titles_data[i].index);
+      tmp[j] = '\0';
+
+      root = insertNode(root, tmp, titles_data[i].index);
+      free(tmp);
     }
   }
 
@@ -196,6 +202,7 @@ int initializeAbb() {
 
     for (int i = 0; i < 4; i++) {
       searchStackTree = createString();
+      access = 0;
 
       char id[6];
       sprintf(id, "s%d", ids[i]);
