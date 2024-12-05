@@ -10,6 +10,7 @@ String *searchStackTree;
 int abbMode;
 
 Abb *insertNode(Abb *root, char *id, int index) {
+  access++;
   if (root == NULL) {
     Abb *new = (Abb *) malloc(sizeof(Abb));
     new->right = new->left = NULL;
@@ -149,11 +150,12 @@ int initializeAbb() {
     printf("What kind of search you would like do perform?\n");
     printf("[1] - By ID\n");
     printf("[2] - By Title\n");
-    printf("[3] - None (Back to main menu)\n");
+    printf("[3] - Perform the default search\n");
+    printf("[4] - None (Back to main menu)\n");
     scanf("%d", &op);
     clearBuffer();
 
-    if (op < 1 || op > 3) {
+    if (op < 1 || op > 4) {
       printf("\nInvalid option\n\n");
     }
 
@@ -162,15 +164,19 @@ int initializeAbb() {
 
   abbMode = op;
 
-  if (op == 3) {
+  if (op == 3) abbMode = 1;
+
+  if (op == 4) {
     printf("\n");
     return 0;
   }
 
   if (abbMode == 1) {
+    access = 0;
     for (int i = 0; i < titles_size; i++) {
       root = insertNode(root, titles_data[i].id, titles_data[i].index);
     }
+    printf("ACCESS: %d\n", access);
   }
 
   else {
@@ -184,6 +190,41 @@ int initializeAbb() {
   }
 
   printf("Nodes inserted on the ABB\n\n");
+
+  if (op == 3) {
+    int ids[4] = { 1, titles_size - 1, (titles_size - 1) / 2, titles_size - 2 };
+
+    for (int i = 0; i < 4; i++) {
+      searchStackTree = createString();
+
+      char id[6];
+      sprintf(id, "s%d", ids[i]);
+
+      printf("\nStarting search for the node with ID: %s\n\n", id);
+      printf("Initial time : ");
+      time_t initialTime = showTime();
+
+      Abb *node = searchNode(root, id);
+
+      printf("Final time   : ");
+      time_t finalTime = showTime();
+
+      printf("Total time   : %ld second(s)\n\n", finalTime - initialTime);
+
+      printf("Total memory accesses: %d\n\n", access);
+
+      printf("Search stack path:\n");
+      printf("[BEGIN] -> ");
+      printString(searchStackTree);
+      printf("[END]\n\n");
+
+      clearString(searchStackTree);
+
+      printLine();
+    }
+
+    return FALSE;
+  }
 
   char op2;
   do {
@@ -263,6 +304,8 @@ int initializeAbb() {
       printString(searchStackTree);
       printf("[END]\n\n");
 
+      printLine();
+
       printf("Do you wanna make another ID search? [Y/n]\n");
       scanf("%c", &op2);
       clearBuffer();
@@ -302,6 +345,8 @@ int initializeAbb() {
       printf("[BEGIN] -> ");
       printString(searchStackTree);
       printf("[END]\n\n");
+
+      printLine();
 
       printf("Do you wanna make another Title search? [Y/n]\n");
       scanf("%c", &op2);

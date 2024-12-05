@@ -34,6 +34,8 @@ void configIndexes() {
 void loadData() {
   titles_data = (ResumedTitle *) malloc(sizeof(ResumedTitle) * titles_size);
 
+  printf("INIT: ");
+  time_t sec = showTime();
   for (int i = 0; i < titles_size; i++) {
     Title t;
     deserializeModel(&t, indexes[i]);
@@ -57,6 +59,8 @@ void loadData() {
     }
   }
 
+  time_t sec2 = showTime();
+  printf("Total: %ld\n\n", sec2 - sec);
   tests_loaded = TRUE;
 }
 

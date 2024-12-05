@@ -1,9 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "Quicksort.h"
 
 int extractNumber(const char* str) {
     return atoi(str + 1); // Converte os caracteres após 's' para número inteiro
+}
+
+void swap(char* arr[], int i, int j) {
+    return;
 }
 
 int partition(char* arr[], int low, int high) {
@@ -52,3 +54,4 @@ void printArray(char* arr[], int size) {
 
     return 0;
 }*/
+

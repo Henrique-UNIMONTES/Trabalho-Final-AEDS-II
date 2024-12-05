@@ -33,7 +33,7 @@
 1733227591 c:\users\henrique.souza\documents\aeds trabalho final\controller\abb\abb.h
 	"../../imports.h"
 
-1733231008 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\abb\abb.c
+1733401828 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\abb\abb.c
 	"Abb.h"
 
 1733147210 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\quicksort\ordenação.c
@@ -50,6 +50,12 @@
 1733231074 source:c:\users\henrique.souza\documents\aeds trabalho final\storage\file.c
 	"File.h"
 
-1733231735 source:c:\users\henrique.souza\documents\aeds trabalho final\view\menu.c
+1733402108 source:c:\users\henrique.souza\documents\aeds trabalho final\view\menu.c
 	"Menu.h"
+
+1733401098 source:c:\users\henrique.souza\documents\aeds trabalho final\controller\quicksort\quicksort.c
+	"Quicksort.h"
+
+1733400992 c:\users\henrique.souza\documents\aeds trabalho final\controller\quicksort\quicksort.h
+	"../../imports.h"
 

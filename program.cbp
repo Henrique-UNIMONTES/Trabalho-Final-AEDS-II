@@ -35,10 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Controller/Abb/Abb.h" />
-		<Unit filename="Controller/QuickSort/Ordenação.c">
+		<Unit filename="Controller/QuickSort/Quicksort.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Controller/QuickSort/Ordenação.h" />
+		<Unit filename="Controller/QuickSort/Quicksort.h" />
 		<Unit filename="Controller/Test.c">
 			<Option compilerVar="CC" />
 		</Unit>
