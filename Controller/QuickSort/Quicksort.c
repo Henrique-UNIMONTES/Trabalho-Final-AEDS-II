@@ -27,7 +27,6 @@ int partition(ResumedTitle *arr, int low, int high) {
         if (searchMode == 1) {
             int id1 = parseIdNumber(arr[j].id), id2 = parseIdNumber(pivot.id);
 
-            // arr[j] < pivot
             if (id1 < id2) {
                 i++;
                 swap(&arr[i], &arr[j]);
@@ -161,6 +160,7 @@ int initializeQuickSort() {
         int ids[4] = { 1, titles_size - 1, (titles_size - 1) / 2, titles_size - 2 };
 
         for (int i = 0; i < 4; i++) {
+            quickAccess = 0;
             quickSearchStackTree = createString();
 
             char id[6];
