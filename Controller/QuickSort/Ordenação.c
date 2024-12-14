@@ -47,13 +47,13 @@ int main() {
     int n = sizeof(titles_data[i].id) / sizeof(titles_data[i].id[0]);
 
     printf("Array original:\n");
-    printArray(strings, n);
+    printArray(titles_data[i].id, n);
 
     // Ordenando o array com QuickSort
     quickSort(titles_data[i].id, 0, n - 1);
 
     printf("\nArray ordenado:\n");
-    printArray(strings, n);
+    printArray(titles_data[i].id, n);
 
     return 0;
 }
